@@ -1,0 +1,12 @@
+twig:
+    # Path to Twig templates
+    default_path: '%kernel.project_dir%/templates'
+
+    # File name pattern for Twig templates (optional)
+    file_name_pattern: '*.twig'
+
+    # Configure Twig settings
+    strict_variables: true
+
+    # Optional: Debug mode (useful during development)
+    debug: '%kernel.debug%'
