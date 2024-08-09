@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 function CategoryGrid() {
@@ -9,6 +9,7 @@ function CategoryGrid() {
     const [types, setTypes] = useState([]);
     const [loadingTypes, setLoadingTypes] = useState(true);
     const [errorTypes, setErrorTypes] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         axios.get('/api/categories')
@@ -21,6 +22,7 @@ function CategoryGrid() {
                 setError('An error occurred while fetching categories.');
                 setLoading(false);
             });
+
         axios.get('/api/types')
             .then(response => {
                 setTypes(response.data);
@@ -34,46 +36,56 @@ function CategoryGrid() {
 
     }, []);
 
-    if (loading) return <p>Loading...</p>;
+    const handleTypeChange = (event) => {
+        const typeId = event.target.value;
+        if (typeId) {
+            navigate(`/type/${typeId}`);
+        }
+    };
 
+    if (loading) return <p>Loading categories...</p>;
     if (error) return <p>{error}</p>;
+    if (loadingTypes) return <p>Loading types...</p>;
+    if (errorTypes) return <p>{errorTypes}</p>;
 
     return (
-        <div className="row">
-            {categories.map(category => (
-                <div className="col-md-6 mb-4" key={category.id}>
-                    <div className="card h-100">
-                        <Link
-                            to={{
-                                pathname: `/category/${category.id}`,
-                                state: { name: category.name } // Passer le nom de la catégorie
-                            }}
-                        >
-                            <img
-                                src={category.picture}
-                                className="card-img-top"
-                                alt={category.name}
-                            />
-                            <div className="card-body">
-                                <h5 className="card-title">{category.name}</h5>
-                            </div>
-                        </Link>
+        <div>
+            <div className="row">
+                {categories.map(category => (
+                    <div className="col-md-6 mb-4" key={category.id}>
+                        <div className="card h-100">
+                            <Link
+                                to={{
+                                    pathname: `/category/${category.id}`,
+                                    state: { name: category.name } // Passer le nom de la catégorie
+                                }}
+                            >
+                                <img
+                                    src={category.picture}
+                                    className="card-img-top"
+                                    alt={category.name}
+                                />
+                                <div className="card-body">
+                                    <h5 className="card-title">{category.name}</h5>
+                                </div>
+                            </Link>
+                        </div>
                     </div>
-                </div>
-            ))}
+                ))}
+            </div>
             <div className="types-list mt-5">
-                <h2>Types</h2>
-                <div className="list-group">
+                <h4>Types</h4>
+                <select onChange={handleTypeChange} className="form-select">
+                    <option value="">Select a type</option>
                     {types.map(type => (
-                        <Link to={`/type/${type.id}`} key={type.id} className="list-group-item list-group-item-action">
+                        <option key={type.id} value={type.id}>
                             {type.name}
-                        </Link>
+                        </option>
                     ))}
-                </div>
+                </select>
             </div>
         </div>
     );
-
 }
 
 export default CategoryGrid;

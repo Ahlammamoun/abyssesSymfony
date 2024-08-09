@@ -6,8 +6,10 @@ $font-family-base: Arial, sans-serif;
 $font-size-base: 16px;
 $font-weight-base: 400;
 $line-height-base: 1.5;
-$body-color: #00f; /* Texte bleu */
-$body-bg: #000; /* Fond noir */
+$body-color: #00f;
+/* Texte bleu */
+$body-bg: #000;
+/* Fond noir */
 
 /* Body */
 body {
@@ -19,6 +21,12 @@ body {
     color: $body-color !important;
     text-align: left !important;
     background-color: $body-bg !important;
+    background-image: url('./images/logo1.jpg');
+    background-position: right bottom;
+    background-repeat: no-repeat;
+    background-size: 25%;
+
+  
 }
 
 /* Navbar */
@@ -38,23 +46,29 @@ body {
 }
 
 .types-list {
-    background-color: #000; /* Fond noir */
+    background-color: #000;
+    /* Fond noir */
     // padding: 20px;
 }
 
 .types-list h2 {
-    color: #00f; /* Texte bleu */
+    color: #00f;
+    /* Texte bleu */
 }
 
-.list-group-item {
-    color: #00f !important; /* Texte bleu */
-    background-color: #000 !important; /* Fond noir */
-    border: none !important; /* Supprimer les bordures */
-   
+.form-select {
+    color: #00f !important;
+    /* Texte bleu */
+    background-color: #000 !important;
+    /* Fond noir */
+    width: 20%;
+    /* Supprimer les bordures */
+
 }
 
 .list-group-item:hover {
-    background-color: #333 !important; /* Fond gris foncé au survol */
+    background-color: #333 !important;
+    /* Fond gris foncé au survol */
 }
 
 
@@ -64,6 +78,7 @@ body {
     color: $body-color;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s;
+    border: solid 0.1px darkblue !important;
 }
 
 .card:hover {
@@ -78,6 +93,7 @@ body {
 
 .card-body {
     background-color: #000;
+
 }
 
 /* Footer */
@@ -112,6 +128,7 @@ body {
 
 span {
     color: #00f;
+    margin-top: 12px;
 }
 
 .species-list {
@@ -185,4 +202,35 @@ td.table-specie {
 
 table {
     width: 100%;
+}
+
+.pagination button {
+    background-color: #007bff;
+    /* Bleu */
+    color: black;
+    border: none;
+    width: 25px;
+    padding: 10px 20px;
+    margin: 0 5px;
+    border-radius: 30px;
+    /* Plus rond */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.pagination button:disabled {
+    background-color: #d6d6d6;
+    /* Gris pour les boutons désactivés */
+    cursor: not-allowed;
+}
+
+.pagination button:hover:not(:disabled) {
+    background-color: #0056b3;
+    /* Bleu plus foncé au survol */
+}
+.pagination {
+    margin-top: 2%;
+}
+.types-list.mt-5 {
+    width: 8em;
 }
