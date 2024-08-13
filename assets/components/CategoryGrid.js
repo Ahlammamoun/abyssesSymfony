@@ -14,12 +14,8 @@ function CategoryGrid() {
     useEffect(() => {
         const token = localStorage.getItem('token'); // Supposons que vous stockez le jeton dans le local storage
 
-        const config = {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        };
-        axios.get('/api/categories', config)
+
+        axios.get('/api/categories')
             .then(response => {
                 setCategories(response.data);
                 setLoading(false);
@@ -30,7 +26,7 @@ function CategoryGrid() {
                 setLoading(false);
             });
 
-        axios.get('/api/types', config)
+        axios.get('/api/types')
             .then(response => {
                 setTypes(response.data);
                 setLoadingTypes(false);

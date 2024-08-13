@@ -1,17 +1,37 @@
 security:
+    enable_authenticator_manager: true
     # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
     password_hashers:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
-        users_in_memory: { memory: null }
+        # used to reload user from session & other features (e.g. switch_user)
+        app_user_provider:
+            entity:
+                class: App\Entity\User
+                property: email
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
+           
+            entry_point: form_login
+            # ... autres configurations ...
+            
+            form_login:
+                login_path: app_login
+                check_path: app_login
+
             lazy: true
-            provider: users_in_memory
+            provider: app_user_provider
+         
+            
+            logout:
+                path: app_logout
+                # where to redirect after logout
+                # target: app_any_route
+   
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -22,8 +42,29 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
+        #- { path: ^/back/[^/]+/new$, roles: ROLE_ADMIN } # routes add à l'admin
+        #- { path: ^/back/[^/]+/\d+$, roles: ROLE_ADMIN, methods: [POST] }  # routes delete en post autorisées au manager
+        #- { path: ^/back/[^/]+/edit$, roles: ROLE_ADMIN } # routes uptade ) l'admin
         # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        # ^ debut de l'url
+        # /back urls qui commencent par back
+        # [^/] tout ce qui n'est pas un /
+        # + un ou plusieurs fois le caractere précédent le /
+        # d+ siginfit que c'est un int un nombre (pour l'id)
+        # $ fin de l'url
+        #- { path: ^/back/[^/]+/\d+$, roles: ROLE_MANAGER, methods: [GET] }  # routes show en get autorisées au manager
+        # ^ debut de l'url
+        # /back urls qui commencent par back
+        # [^/] tout ce qui n'est pas un /
+        # + un ou plusieurs fois le caractere précédent le /
+        # - { path: ^/motor/bike/[^/]+/$, roles: ROLE_MANAGER } # route liste
+        #- { path: ^/, roles: ROLE_USER }
+    
+    role_hierarchy: 
+        ROLE_ADMIN: ROLE_ADMIN
+        ROLE_MANAGER: ROLE_MANAGER
+        ROLE_USER: ROLE_USER
+       
 
 when@test:
     security:
@@ -37,3 +78,8 @@ when@test:
                 cost: 4 # Lowest possible value for bcrypt
                 time_cost: 3 # Lowest possible value for argon
                 memory_cost: 10 # Lowest possible value for argon
+
+services:
+    security.user_password_hasher:
+        class: Symfony\Component\PasswordHasher\Hasher\UserPasswordHasher
+        public: true

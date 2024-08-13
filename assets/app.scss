@@ -6,39 +6,35 @@ $font-family-base: Arial, sans-serif;
 $font-size-base: 16px;
 $font-weight-base: 400;
 $line-height-base: 1.5;
-$body-color: #00f;
-/* Texte bleu */
-$body-bg: #000;
-/* Fond noir */
 
-/* Body */
-body {
-    margin: 0 !important;
-    font-family: $font-family-base !important;
-    font-size: $font-size-base !important;
-    font-weight: $font-weight-base !important;
-    line-height: $line-height-base !important;
-    color: $body-color !important;
-    text-align: left !important;
-    background-color: $body-bg !important;
-    background-image: url('./images/logo1.jpg');
-    background-position: right bottom;
-    background-repeat: no-repeat;
-    background-size: 25%;
+body.dark {
+    color: #00f; /* Texte bleu */
+    background-color: #000; /* Fond noir */
+    background-image: url('/assets/images/logo1.jpg ');
+    background-repeat: no-repeat; /* Ne répète pas l'image */
+    background-position: right bottom; /* Centre l'image */
+    background-size: 25%; 
+ 
+}
 
-  
+body.light {
+    color: #000; /* Texte noir */
+    background-color: #fff; /* Fond blanc */
+ 
 }
 
 /* Navbar */
 .navbar {
-    background-color: $body-bg;
+    background-image: url('/assets/images/logo2.jpg ');
+    background-repeat: no-repeat; /* Ne répète pas l'image */
+    background-position: right bottom; /* Centre l'image */
+    background-size: 100%; 
+    color: #00f;
 }
 
 .navbar .navbar-brand,
 .navbar .nav-link {
-    color: $body-color;
-    font-weight: 800;
-    font-size: x-large;
+    color: inherit;
 }
 
 .navbar .nav-link:hover {
@@ -98,12 +94,17 @@ body {
 
 /* Footer */
 .footer {
-    background-color: $body-bg;
+    background-color: #000;
     color: rgb(39, 92, 161);
     padding: 20px 0;
     text-align: center;
+    background-image: url('/assets/images/logo2.jpg ');
+    background-repeat: no-repeat; /* Ne répète pas l'image */
+    background-size: 100%; 
 }
-
+body.light .footer {
+    background-color: #fff; /* Définit la couleur de fond du footer pour le thème clair */
+}
 .footer .container {
     display: flex;
     flex-direction: column;
@@ -234,7 +235,8 @@ table {
 }
 
 .types-list.mt-5 {
-    width: 8em;
+    width: 3em;
+    background-color: transparent;
 }
 
 .avis {
@@ -264,4 +266,10 @@ table {
 button.btn {
     background-color: #00f;
     color: white;
+}
+
+button.btn.btn-outline {
+    color: #00f;
+    background-color: transparent;
+    margin-top: 0.5px;
 }

@@ -5,7 +5,9 @@ import Footer from './Footer';
 import CategoryGrid from './CategoryGrid';
 import SpeciesList from './SpeciesList';
 import TypeSpeciesList from './TypeSpeciesList';
-import SpeciesDetail from './SpeciesDetail'
+import SpeciesDetail from './SpeciesDetail';
+
+
 
 function App() {
     return (

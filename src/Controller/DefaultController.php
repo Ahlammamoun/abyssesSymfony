@@ -17,14 +17,13 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Avis;
 use App\Repository\AvisRepository;
 use Doctrine\ORM\EntityManagerInterface;
-
-
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class DefaultController extends AbstractController
 {
 
 
-    #[Route('/{reactRouting}', name: 'react_app', requirements: ['reactRouting' => '^(?!api).*$'], defaults: ['reactRouting' => null])]
+    #[Route('/{reactRouting}', name: 'react_app')]
     public function index(): Response
     {
         return $this->render('base.html.twig');
@@ -254,5 +253,31 @@ class DefaultController extends AbstractController
         } catch (\Exception $e) {
             return new JsonResponse(['error' => $e->getMessage()], 500);
         }
+    }
+
+
+
+    #[Route('/theme/toggle', name: 'theme_toggle', methods: ['POST'])]
+    public function themeSwitcher(SessionInterface $session): JsonResponse
+    {
+        // Récupérer le thème actuel de la session (par défaut "dark")
+        $currentTheme = $session->get('theme', 'dark');
+
+        // Basculer entre "dark" et "light"
+        $newTheme = $currentTheme === 'dark' ? 'light' : 'dark';
+
+        // Stocker le nouveau thème dans la session
+        $session->set('theme', $newTheme);
+
+        // Retourner le nouveau thème sous forme de JSON
+        return new JsonResponse(['theme' => $newTheme]);
+    }
+
+    #[Route('/theme/current', name: 'theme_current', methods: ['GET'])]
+    public function getCurrentTheme(SessionInterface $session): JsonResponse
+    {
+        // Retourner le thème actuel, par défaut "dark", sous forme de JSON
+        $theme = $session->get('theme', 'dark');
+        return new JsonResponse(['theme' => $theme]);
     }
 }
