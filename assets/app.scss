@@ -99,8 +99,9 @@ body.light {
     padding: 20px 0;
     text-align: center;
     background-image: url('/assets/images/logo2.jpg ');
+    background-position: center;
     background-repeat: no-repeat; /* Ne répète pas l'image */
-    background-size: 100%; 
+    background-size:100%; 
 }
 body.light .footer {
     background-color: #fff; /* Définit la couleur de fond du footer pour le thème clair */
@@ -273,3 +274,89 @@ button.btn.btn-outline {
     background-color: transparent;
     margin-top: 0.5px;
 }
+
+/* UserProfile.css */
+
+.user-profile-container {
+    margin-bottom: 11%;
+    align-items: center;
+    background-color: #000;
+    border: 1px solid blue;
+    display: flex;
+    height: 21em;
+    justify-content: center;
+    margin-left: 31%;
+    margin-right: 31%;
+    margin-top: 26%;
+}
+
+button.form-button {
+    color: white;
+    background-color: blue;
+}
+
+.user-profile-form {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+.form-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #333;
+}
+
+.form-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #333;
+}
+
+.form-input:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.form-error {
+    color: red;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.form-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.form-button:hover {
+    background-color: #0056b3;
+}
+

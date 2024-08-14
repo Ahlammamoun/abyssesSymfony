@@ -6,6 +6,7 @@ import CategoryGrid from './CategoryGrid';
 import SpeciesList from './SpeciesList';
 import TypeSpeciesList from './TypeSpeciesList';
 import SpeciesDetail from './SpeciesDetail';
+import UserProfile from './UserProfile'; 
 
 
 
@@ -20,6 +21,7 @@ function App() {
                         <Route path="/category/:id" element={<SpeciesList />} />
                         <Route path="/type/:id" element={<TypeSpeciesList />} />
                         <Route path="/species/:id" element={<SpeciesDetail />} />
+                        <Route path="/profile" element={<UserProfile />} />
                     </Routes>
                 </main>
                 <Footer />

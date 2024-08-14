@@ -19,9 +19,9 @@ use App\Repository\AvisRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
+
 class DefaultController extends AbstractController
 {
-
 
     #[Route('/{reactRouting}', name: 'react_app')]
     public function index(): Response
@@ -273,11 +273,14 @@ class DefaultController extends AbstractController
         return new JsonResponse(['theme' => $newTheme]);
     }
 
-    #[Route('/theme/current', name: 'theme_current', methods: ['GET'])]
-    public function getCurrentTheme(SessionInterface $session): JsonResponse
-    {
-        // Retourner le thème actuel, par défaut "dark", sous forme de JSON
-        $theme = $session->get('theme', 'dark');
-        return new JsonResponse(['theme' => $theme]);
-    }
+    // #[Route('/theme/current', name: 'theme_current', methods: ['GET'])]
+    // public function getCurrentTheme(SessionInterface $session): JsonResponse
+    // {
+    //     // Retourner le thème actuel, par défaut "dark", sous forme de JSON
+    //     $theme = $session->get('theme', 'dark');
+    //     return new JsonResponse(['theme' => $theme]);
+    // }
+
+
+
 }
