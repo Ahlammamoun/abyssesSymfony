@@ -8,27 +8,48 @@ $font-weight-base: 400;
 $line-height-base: 1.5;
 
 body.dark {
-    color: #00f; /* Texte bleu */
-    background-color: #000; /* Fond noir */
-    background-image: url('/assets/images/logo1.jpg ');
-    background-repeat: no-repeat; /* Ne répète pas l'image */
-    background-position: right bottom; /* Centre l'image */
-    background-size: 25%; 
- 
+    color: #00f;
+    /* Texte bleu */
+    background-color: #000;
+    /* Fond noir */
+    /* Ne répète pas l'image */
+    /* Centre l'image */
+    background-size: 15%;
+
+
+}
+
+.navbar-brand.logo {
+    display: block;
+    /* Assure que les dimensions sont prises en compte */
+    width: 500px;
+    /* Ajustez cette valeur à la largeur de votre image */
+    height: 150px;
+    background-position: -44px;
+    /* Ajustez cette valeur à la hauteur de votre image */
+    background-image: url('/assets/images/logo1.jpg');
+    /* Chemin vers votre image */
+    background-size: contain;
+    /* Ajuste l'image pour qu'elle s'adapte à l'élément */
+    background-repeat: no-repeat;
+    /* Empêche la répétition de l'image */
+    background-position: start;
+    /* Centre l'image */
+    font-weight: bold;
+
 }
 
 body.light {
-    color: #000; /* Texte noir */
-    background-color: #fff; /* Fond blanc */
- 
+    color: #000;
+    /* Texte noir */
+    background-color: #fff;
+    /* Fond blanc */
+
 }
 
 /* Navbar */
 .navbar {
-    background-image: url('/assets/images/logo2.jpg ');
-    background-repeat: no-repeat; /* Ne répète pas l'image */
-    background-position: right bottom; /* Centre l'image */
-    background-size: 100%; 
+    background-color: #000;
     color: #00f;
 }
 
@@ -100,12 +121,16 @@ body.light {
     text-align: center;
     background-image: url('/assets/images/logo2.jpg ');
     background-position: center;
-    background-repeat: no-repeat; /* Ne répète pas l'image */
-    background-size:100%; 
+    background-repeat: no-repeat;
+    /* Ne répète pas l'image */
+    background-size: 100%;
 }
+
 body.light .footer {
-    background-color: #fff; /* Définit la couleur de fond du footer pour le thème clair */
+    background-color: #fff;
+    /* Définit la couleur de fond du footer pour le thème clair */
 }
+
 .footer .container {
     display: flex;
     flex-direction: column;
@@ -359,4 +384,3 @@ button.form-button {
 .form-button:hover {
     background-color: #0056b3;
 }
-

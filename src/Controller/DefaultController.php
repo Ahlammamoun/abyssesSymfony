@@ -18,6 +18,7 @@ use App\Entity\Avis;
 use App\Repository\AvisRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 
 class DefaultController extends AbstractController
@@ -222,13 +223,23 @@ class DefaultController extends AbstractController
         return new JsonResponse($data);
     }
 
+
     #[Route('/api/species/{id}/avis', name: 'api_add_avis', methods: ['POST'])]
+    // #[IsGranted('ROLE_ADMIN')] 
+    // #[IsGranted('ROLE_USER')] // Restreindre l'accès aux utilisateurs ayant le rôle "ROLE_USER"
     public function addAvis(
         $id,
         Request $request,
         SpeciesRepository $speciesRepository,
         EntityManagerInterface $em
     ): JsonResponse {
+        // $user = $this->getUser();
+        // if (!$user) {
+        //     return new JsonResponse(['error' => 'User not authenticated'], 401);
+        // }
+        
+        // // Affiche les rôles pour vérifier l'authentification
+        // dump($user->getRoles());
         $species = $speciesRepository->find($id);
     
         if (!$species) {
@@ -282,5 +293,13 @@ class DefaultController extends AbstractController
     // }
 
 
-
+    #[Route('/session/test', name: 'session_test')]
+    public function testSession(Request $request): JsonResponse
+    {
+        $session = $request->getSession();
+        $session->set('test_key', 'test_value');
+    
+        return new JsonResponse(['test_key' => $session->get('test_key')]);
+    }
+    
 }
