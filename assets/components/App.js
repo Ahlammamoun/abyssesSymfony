@@ -19,7 +19,7 @@ function App() {
                 <Navbar user={user} setUser={setUser} />
                 <main className="container my-4">
                     <Routes>
-                        <Route path="/" element={<CategoryGrid />} />
+                        <Route path="/abysses" element={<CategoryGrid />} />
                         <Route path="/category/:id" element={<SpeciesList />} />
                         <Route path="/type/:id" element={<TypeSpeciesList />} />
                         <Route path="/species/:id" element={<SpeciesDetail />} />

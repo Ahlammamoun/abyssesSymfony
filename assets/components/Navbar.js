@@ -16,6 +16,7 @@ function Navbar({ user, setUser }) {
         })
         .then(data => {
             setTheme(data.theme);
+            console.log(data.theme);
             document.body.className = data.theme;
         })
         .catch(error => {
@@ -42,7 +43,7 @@ function Navbar({ user, setUser }) {
     return (
         <nav className="navbar navbar-expand-lg">
             <div className="container">
-                <a className="navbar-brand logo" href="/"></a>
+                <a className="navbar-brand logo" href="/abysses"></a>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
@@ -56,7 +57,7 @@ function Navbar({ user, setUser }) {
                             </li>
                         )}
                         <li className="nav-item">
-                            <Link className="nav-link" to="/">Home</Link>
+                            <Link className="nav-link" to="/abysses">Home</Link>
                         </li>
                         <li className="nav-item">
                             <Link className="nav-link" to="/category">Categories</Link>

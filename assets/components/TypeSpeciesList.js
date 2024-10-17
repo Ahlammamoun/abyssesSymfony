@@ -69,9 +69,6 @@ function TypeSpeciesList() {
                 <div className="species-list">
                     <div className="category-header">
                         <h1>{selectedType.name}</h1>
-                        {selectedType.picture && (
-                            <img src={selectedType.picture} alt={selectedType.name} className="category-picture" />
-                        )}
                     </div>
                     <div className="species-container">
                         {species.length === 0 ? (
