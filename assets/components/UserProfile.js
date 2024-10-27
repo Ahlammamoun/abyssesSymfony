@@ -21,7 +21,7 @@ function UserProfile({ setUser }) {
                 console.log('Login successful:', response.data); 
                 setUser(response.data); // Mettre à jour l'état utilisateur
                 setError(null);
-                navigate('/'); // Rediriger vers la page d'accueil
+                navigate('/abysses'); // Rediriger vers la page d'accueil
             })
             .catch(error => {
                 if (error.response && error.response.data) {

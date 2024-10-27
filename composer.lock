@@ -4199,16 +4199,16 @@
         },
         {
             "name": "symfony/security-core",
-            "version": "v6.4.10",
+            "version": "v6.4.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/security-core.git",
-                "reference": "432dec55da108c471adcf58c351af01372a52164"
+                "reference": "8c7e52155262b3ef6b7885f6d9bd90fb24eaa66f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/security-core/zipball/432dec55da108c471adcf58c351af01372a52164",
-                "reference": "432dec55da108c471adcf58c351af01372a52164",
+                "url": "https://api.github.com/repos/symfony/security-core/zipball/8c7e52155262b3ef6b7885f6d9bd90fb24eaa66f",
+                "reference": "8c7e52155262b3ef6b7885f6d9bd90fb24eaa66f",
                 "shasum": ""
             },
             "require": {
@@ -4265,7 +4265,7 @@
             "description": "Symfony Security Component - Core Library",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/security-core/tree/v6.4.10"
+                "source": "https://github.com/symfony/security-core/tree/v6.4.12"
             },
             "funding": [
                 {
@@ -4281,7 +4281,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-07-26T12:30:32+00:00"
+            "time": "2024-09-20T08:21:33+00:00"
         },
         {
             "name": "symfony/security-csrf",

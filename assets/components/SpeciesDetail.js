@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import AvisForm from './FormAvis';
 import axios from 'axios';
 
-function SpeciesDetail() {
+function SpeciesDetail({ user }) {
     const { id } = useParams();
     const [species, setSpecies] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -30,6 +30,8 @@ function SpeciesDetail() {
         fetchSpeciesDetails();
     }, [id, currentPage]);
 
+    console.log('User in SpeciesDetail:', user); 
+
     const handlePageChange = (newPage) => {
         if (newPage > 0 && newPage <= totalPages) {
             setCurrentPage(newPage);
@@ -46,7 +48,7 @@ function SpeciesDetail() {
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>{error}</p>;
-
+  
     return (
         <div className="species-detail">
             {species ? (
@@ -108,7 +110,13 @@ function SpeciesDetail() {
                             &gt;
                         </button>
                     </div>
-                    <AvisForm speciesId={id} onAvisSubmitted={() => fetchSpeciesDetails(currentPage)} />
+                    {user && ( // Afficher le formulaire seulement si l'utilisateur est connecté
+                        <AvisForm 
+                            speciesId={id} 
+                            onAvisSubmitted={() => fetchSpeciesDetails(currentPage)} 
+                            user={user} 
+                        />
+                    )}
                 </>
             ) : (
                 <p>Aucune information disponible pour cette espèce.</p>

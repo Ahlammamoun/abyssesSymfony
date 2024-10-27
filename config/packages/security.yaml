@@ -23,6 +23,7 @@ security:
                 check_path: app_login
             logout:
                 path: /api/logout
+                invalidate_session: true
 
 when@test:
     security:

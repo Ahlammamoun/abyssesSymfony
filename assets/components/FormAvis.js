@@ -41,6 +41,8 @@ function AvisForm({ speciesId, onAvisSubmitted }) {
         }
     };
 
+
+    console.log('user in AvisForm');
     return (
         <div className="avis-form-container">
             <button 
@@ -111,4 +113,3 @@ function AvisForm({ speciesId, onAvisSubmitted }) {
 }
 
 export default AvisForm;
-

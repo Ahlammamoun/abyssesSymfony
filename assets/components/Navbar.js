@@ -33,7 +33,7 @@ function Navbar({ user, setUser }) {
         axios.post('/api/logout')
             .then(() => {
                 setUser(null); // Réinitialiser l'utilisateur
-                navigate('/'); // Rediriger vers la page d'accueil
+                navigate('/abysses'); // Rediriger vers la page d'accueil
             })
             .catch(error => {
                 console.error('There was an error logging out!', error);

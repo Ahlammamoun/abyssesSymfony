@@ -7,6 +7,7 @@ import SpeciesList from './SpeciesList';
 import TypeSpeciesList from './TypeSpeciesList';
 import SpeciesDetail from './SpeciesDetail';
 import UserProfile from './UserProfile'; 
+import AvisForm from './FormAvis';
 
 
 
@@ -22,8 +23,9 @@ function App() {
                         <Route path="/abysses" element={<CategoryGrid />} />
                         <Route path="/category/:id" element={<SpeciesList />} />
                         <Route path="/type/:id" element={<TypeSpeciesList />} />
-                        <Route path="/species/:id" element={<SpeciesDetail />} />
+                        <Route path="/species/:id" element={<SpeciesDetail  user={user} />} />
                         <Route path="/profile" element={<UserProfile setUser={setUser}/>} />
+                        {/* <Route path="/species/:id/avis" element={<AvisForm speciesId={1} user={user} setUser={setUser}/>} /> */}
                     </Routes>
                 </main>
                 <Footer />

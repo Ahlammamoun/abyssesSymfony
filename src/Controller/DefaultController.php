@@ -21,6 +21,10 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 
+
+
+
+
 class DefaultController extends AbstractController
 {
 
@@ -100,20 +104,20 @@ class DefaultController extends AbstractController
     ): JsonResponse {
         try {
             $species = $speciesRepository->find($id);
-    
+
             if (!$species) {
                 return new JsonResponse(['error' => 'Species not found'], 404);
             }
-    
+
             // Paramètres pour la pagination
             $page = $request->query->get('page', 1);
             $limit = $request->query->get('limit', 3); // Limite par page
             $offset = ($page - 1) * $limit;
-    
+
             // Récupération des avis avec pagination
             $totalAvis = $avisRepository->count(['species' => $species]);
             $avisCollection = $avisRepository->findBy(['species' => $species], ['date' => 'DESC'], $limit, $offset);
-    
+
             $avisList = [];
             foreach ($avisCollection as $avis) {
                 $avisList[] = [
@@ -124,7 +128,7 @@ class DefaultController extends AbstractController
                     'rating' => $avis->getRating(),
                 ];
             }
-    
+
             // Préparation des données pour la réponse JSON
             $data = [
                 'id' => $species->getId(),
@@ -136,7 +140,7 @@ class DefaultController extends AbstractController
                 'currentPage' => $page,
                 'date' => $species->getDate()->format('Y-m-d H:i:s'),
             ];
-    
+
             return new JsonResponse($data);
         } catch (\Exception $e) {
             $logger->error('Error fetching species detail: ' . $e->getMessage());
@@ -233,33 +237,43 @@ class DefaultController extends AbstractController
         SpeciesRepository $speciesRepository,
         EntityManagerInterface $em
     ): JsonResponse {
-        // $user = $this->getUser();
+        // Récupérer l'utilisateur de la session
+        $session = $request->getSession();
+        $user = $session->get('user');
+
+        // dump($user->getRoles());
+
+        // Vérifiez si l'utilisateur a le rôle ADMIN
+        if (!in_array('ROLE_ADMIN', $user->getRoles(), true)) {
+            return new JsonResponse(['error' => 'Access Denied'], 403);
+        }
+
         // if (!$user) {
         //     return new JsonResponse(['error' => 'User not authenticated'], 401);
         // }
-        
+
         // // Affiche les rôles pour vérifier l'authentification
         // dump($user->getRoles());
         $species = $speciesRepository->find($id);
-    
+
         if (!$species) {
             return new JsonResponse(['error' => 'Species not found'], 404);
         }
-    
+
         $data = json_decode($request->getContent(), true);
-    
+
         $avis = new Avis();
         $avis->setContent($data['content']);
         $avis->setAuthor($data['author']);
         $avis->setEmail($data['email']);
         $avis->setDate(new \DateTime());
         $avis->setRating($data['rating']);
-    
+
         try {
             $avis->setSpecies($species);
             $em->persist($avis);
             $em->flush();
-    
+
             return new JsonResponse(['status' => 'Avis added successfully'], 201);
         } catch (\Exception $e) {
             return new JsonResponse(['error' => $e->getMessage()], 500);
@@ -298,8 +312,7 @@ class DefaultController extends AbstractController
     {
         $session = $request->getSession();
         $session->set('test_key', 'test_value');
-    
+
         return new JsonResponse(['test_key' => $session->get('test_key')]);
     }
-    
 }
