@@ -46,7 +46,7 @@ function AvisForm({ speciesId, onAvisSubmitted }) {
     return (
         <div className="avis-form-container">
             <button 
-                className="btn btn-primary"
+                className="btn btn-update"
                 onClick={() => setIsFormVisible(!isFormVisible)}
             >
                 {isFormVisible ? 'Fermer le formulaire' : 'Laissez un avis'}
@@ -102,7 +102,7 @@ function AvisForm({ speciesId, onAvisSubmitted }) {
                                 </label>
                             ))}
                         </div>
-                        <button type="submit" className="btn btn-success">
+                        <button type="submit" className="submit-button">
                             Envoyer
                         </button>
                     </form>

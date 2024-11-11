@@ -2,13 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-function CategoryGrid() {
+
+
+function CategoryGrid({ user }) {
     const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [types, setTypes] = useState([]);
     const [loadingTypes, setLoadingTypes] = useState(true);
     const [errorTypes, setErrorTypes] = useState(null);
+    const [isCreateFormOpen, setIsCreateFormOpen] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -46,6 +49,7 @@ function CategoryGrid() {
         }
     };
 
+
     if (loading) return <p>Loading categories...</p>;
     if (error) return <p>{error}</p>;
     if (loadingTypes) return <p>Loading types...</p>;
@@ -53,6 +57,13 @@ function CategoryGrid() {
 
     return (
         <div>
+
+            {/* Affiche les boutons uniquement si l'utilisateur est administrateur */}
+            {user?.roles.includes('ROLE_ADMIN') && (
+                <>
+                    <Link to="/create-category" className="btn btn">Add Category</Link>
+                </>
+            )}
             <div className="row">
                 {categories.map(category => (
                     <div className="col-md-6 mb-4" key={category.id}>
@@ -77,7 +88,7 @@ function CategoryGrid() {
                 ))}
             </div>
             <div className="types-list mt-5">
-                <h4>Types</h4>
+                <h4>Espèces</h4>
                 <select onChange={handleTypeChange} className="form-select">
                     <option value="">Select a type</option>
                     {types.map(type => (

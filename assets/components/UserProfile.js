@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -8,7 +8,14 @@ function UserProfile({ setUser }) {
     const [error, setError] = useState(null);
     const navigate = useNavigate(); 
 
-    const handleSubmit = (e) => {
+    useEffect(() => {
+        const savedUser = localStorage.getItem('user');
+        if (savedUser) {
+            setUser(JSON.parse(savedUser));
+        }
+    }, [setUser]);
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (!email || !password) {
@@ -16,21 +23,25 @@ function UserProfile({ setUser }) {
             return;
         }
 
-        axios.post('/api/login', { email, password })
-            .then(response => {
-                console.log('Login successful:', response.data); 
-                setUser(response.data); // Mettre à jour l'état utilisateur
-                setError(null);
-                navigate('/abysses'); // Rediriger vers la page d'accueil
-            })
-            .catch(error => {
-                if (error.response && error.response.data) {
-                    setError(error.response.data.error);
-                } else {
-                    setError('An unexpected error occurred');
-                }
-            });
+        try {
+            const response = await axios.post('/api/login', { email, password });
+            console.log('Login successful:', response.data);
+            
+            // Save user to localStorage and set state
+            localStorage.setItem('user', JSON.stringify(response.data));
+            setUser(response.data); 
+            setError(null);
+            
+            navigate('/abysses'); // Redirect to homepage
+        } catch (error) {
+            if (error.response && error.response.data) {
+                setError(error.response.data.error);
+            } else {
+                setError('An unexpected error occurred');
+            }
+        }
     };
+
 
     return (
         <div className="user-profile-container">

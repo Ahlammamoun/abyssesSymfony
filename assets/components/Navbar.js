@@ -1,13 +1,17 @@
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function Navbar({ user, setUser }) {
 
-    const [theme, setTheme] = useState('dark');
+    const [theme, setTheme] = useState('dark'); // 'dark' comme thème par défaut
+
+    useEffect(() => {
+        document.body.className = theme; // Applique la classe de thème au <body>
+    }, [theme]); 
     
     const toggleTheme = () => {
-        fetch('http://127.0.0.1:8000/theme/toggle', { method: 'POST' })
+        fetch('http://127.0.0.1:8000/api/theme/toggle', { method: 'POST' })
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -32,6 +36,7 @@ function Navbar({ user, setUser }) {
     const handleLogout = () => {
         axios.post('/api/logout')
             .then(() => {
+                localStorage.removeItem('user');
                 setUser(null); // Réinitialiser l'utilisateur
                 navigate('/abysses'); // Rediriger vers la page d'accueil
             })

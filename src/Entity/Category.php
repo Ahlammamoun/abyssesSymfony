@@ -31,7 +31,7 @@ class Category
     #[ORM\Column(type: 'text', nullable: true)]
     private ?string $avis = null;
 
-    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Species::class)]
+    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Species::class, cascade: ['remove'])]
     private Collection $species;
 
     public function __construct()

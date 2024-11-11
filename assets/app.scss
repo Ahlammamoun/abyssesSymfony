@@ -8,16 +8,15 @@ $font-weight-base: 400;
 $line-height-base: 1.5;
 
 body.dark {
+    background-color: black;
     color: #00f;
-    /* Texte bleu */
-    background-color: #000;
-    /* Fond noir */
-    /* Ne répète pas l'image */
-    /* Centre l'image */
-    background-size: 15%;
-
-
 }
+
+body.light {
+    background-color: white;
+    color: black;
+}
+
 
 .navbar-brand.logo {
     display: block;
@@ -36,14 +35,6 @@ body.dark {
     background-position: start;
     /* Centre l'image */
     font-weight: bold;
-
-}
-
-body.light {
-    color: #000;
-    /* Texte noir */
-    background-color: #fff;
-    /* Fond blanc */
 
 }
 
@@ -136,7 +127,9 @@ body.light .footer {
     flex-direction: column;
     align-items: center;
 }
-
+h4{
+    color: #00f;
+}
 .footer .social-links {
     margin-top: 10px;
 }
@@ -383,4 +376,136 @@ button.form-button {
 
 .form-button:hover {
     background-color: #0056b3;
+}
+
+.form-container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-title {
+    text-align: center;
+    color: #333;
+    font-size: 1.5em;
+    margin-bottom: 1em;
+}
+
+.form-section-title {
+    color: #0056b3;
+    font-size: 1.2em;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+}
+
+.form-group {
+    margin-bottom: 1em;
+}
+
+.form-label {
+    display: block;
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 0.3em;
+}
+
+.form-input,
+.form-textarea,
+.form-select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+    color: #333;
+}
+
+.form-input:focus,
+.form-textarea:focus,
+.form-select:focus {
+    border-color: #0056b3;
+    outline: none;
+    box-shadow: 0 0 4px rgba(0, 86, 179, 0.2);
+}
+
+.form-textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1.5em;
+}
+
+.add-button,
+.submit-button {
+    padding: 10px 20px;
+    font-size: 1em;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.add-button {
+    background-color: #28a745;
+}
+
+.add-button:hover {
+    background-color: #218838;
+}
+
+.submit-button {
+    background-color: #007bff;
+}
+
+.submit-button:hover {
+    background-color: #0069d9;
+}
+
+.error-message {
+    color: #d9534f;
+    font-size: 0.9em;
+    text-align: center;
+    margin-bottom: 1em;
+}
+
+a.btn.btn {
+    background-color: black;
+    color:  #00f;
+    border: solid 2px #00f;
+}
+
+button.btn.btn-delete {
+    background-color: black;
+    color: #00f;
+    border: solid 2px darkred;
+}
+
+button.btn.btn-update {
+    background-color: black;
+    color: #00f;
+    border: solid 2px darkgreen;
+}
+button.submit-button {
+    background-color: black;
+    color:  #00f;
+    border: solid 2px #00f;
+}
+
+button.add-button {
+    background-color: black;
+    color:  #00f;
+    border: solid 2px #00f;
+}
+
+button.submit-button {
+    background-color: black;
+    color: #00f;
+    border: solid 2px darkgreen;
 }

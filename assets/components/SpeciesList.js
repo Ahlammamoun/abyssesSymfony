@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { useParams, useLocation, Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-
-function SpeciesList() {
+function SpeciesList({user}) {
     const { id } = useParams();
     const location = useLocation();
     const [species, setSpecies] = useState([]);
@@ -13,7 +11,9 @@ function SpeciesList() {
     const [error, setError] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
+    const navigate = useNavigate();
 
+    // Charger les détails de la catégorie
     useEffect(() => {
         if (location.state && location.state.name && location.state.picture) {
             setCategory({ name: location.state.name, picture: location.state.picture });
@@ -29,6 +29,7 @@ function SpeciesList() {
         }
     }, [location.state, id]);
 
+    // Charger les espèces de la catégorie
     useEffect(() => {
         setLoading(true);
         axios.get(`/api/categories/${id}/species`, {
@@ -55,12 +56,41 @@ function SpeciesList() {
         }
     };
 
+    const handleDelete = async (id) => {
+        try {
+            await axios.delete(`/api/categories/${id}`);
+            console.log(`Category ${id} deleted successfully.`);
+            navigate('/abysses');
+        } catch (error) {
+            console.error('Error deleting category:', error.response ? error.response.data : error.message);
+        }
+    };
+
+    // Nouvelle fonction pour la redirection vers le formulaire d'édition
+    const handleUpdate = () => {
+        navigate(`/update-category/${id}`, { state: { category, species } });
+    };
+
     if (loading) return <p>Loading...</p>;
 
     if (error) return <p>{error}</p>;
 
     return (
         <div className="species-list">
+            <div>
+                 {/* Affiche les boutons uniquement si l'utilisateur est administrateur */}
+                 {user?.roles.includes('ROLE_ADMIN') && (
+                    <>
+                        <button onClick={() => handleDelete(category.id)} className="btn btn-delete">
+                            Delete Category
+                        </button>
+                        <button onClick={handleUpdate} className="btn btn-update">
+                            Update Category
+                        </button>
+                    </>
+                )}
+                {error && <p>{error}</p>}
+            </div>
             <div className="category-header">
                 <h1>{category.name}</h1>
                 {category.picture && (
@@ -93,3 +123,4 @@ function SpeciesList() {
 }
 
 export default SpeciesList;
+

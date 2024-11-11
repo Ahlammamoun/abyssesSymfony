@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import AvisForm from './FormAvis';
 import axios from 'axios';
+import { useLocation, Link, useNavigate } from 'react-router-dom';
 
 function SpeciesDetail({ user }) {
     const { id } = useParams();
@@ -10,6 +11,7 @@ function SpeciesDetail({ user }) {
     const [error, setError] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
+    const navigate = useNavigate();
 
     const fetchSpeciesDetails = () => {
         setLoading(true);
@@ -18,11 +20,14 @@ function SpeciesDetail({ user }) {
                 setSpecies(response.data);
                 setTotalPages(response.data.totalPages);
                 setLoading(false);
+                  console.log("Détails de l'espèce:", response.data);
             })
+          
             .catch(error => {
                 console.error("Erreur lors de la récupération des détails de l'espèce :", error);
                 setError("Une erreur est survenue lors de la récupération des données.");
                 setLoading(false);
+                
             });
     };
 
@@ -30,7 +35,7 @@ function SpeciesDetail({ user }) {
         fetchSpeciesDetails();
     }, [id, currentPage]);
 
-    console.log('User in SpeciesDetail:', user); 
+  
 
     const handlePageChange = (newPage) => {
         if (newPage > 0 && newPage <= totalPages) {
@@ -46,11 +51,38 @@ function SpeciesDetail({ user }) {
         return (total / species.avis.length).toFixed(1);
     };
 
+
+    const handleDeleteSpecies = async () => {
+        try {
+            await axios.delete(`/api/species/${id}`);
+            // console.log(`Espèce ${id} supprimée avec succès.`);
+    
+            // Redirige vers la catégorie en utilisant categoryId
+            if (species && species.categoryId) {
+                navigate(`/category/${species.categoryId}`);
+            } else {
+                console.error("Erreur : ID de la catégorie non disponible pour la redirection.");
+            }
+        } catch (error) {
+            console.error("Erreur lors de la suppression de l'espèce :", error.response ? error.response.data : error.message);
+        }
+    };
+    
+
     if (loading) return <p>Loading...</p>;
     if (error) return <p>{error}</p>;
-  
+
     return (
         <div className="species-detail">
+             {/* Afficher le bouton de suppression uniquement si l'utilisateur a le rôle ROLE_ADMIN */}
+             {user?.roles.includes('ROLE_ADMIN') && (
+                <button
+                    onClick={handleDeleteSpecies}
+                    className="btn btn-delete"
+                >
+                    Supprimer l'espèce
+                </button>
+            )}
             {species ? (
                 <>
                     <h1 className='species_detail'>{species.name}</h1>
@@ -94,16 +126,16 @@ function SpeciesDetail({ user }) {
                         </tbody>
                     </table>
                     <div className="pagination">
-                        <button 
-                            onClick={() => handlePageChange(currentPage - 1)} 
+                        <button
+                            onClick={() => handlePageChange(currentPage - 1)}
                             disabled={currentPage === 1}
                             className="btn btn-primary"
                         >
                             &lt;
                         </button>
                         <span>Page {currentPage} sur {totalPages}</span>
-                        <button 
-                            onClick={() => handlePageChange(currentPage + 1)} 
+                        <button
+                            onClick={() => handlePageChange(currentPage + 1)}
                             disabled={currentPage === totalPages}
                             className="btn btn-primary"
                         >
@@ -111,10 +143,10 @@ function SpeciesDetail({ user }) {
                         </button>
                     </div>
                     {user && ( // Afficher le formulaire seulement si l'utilisateur est connecté
-                        <AvisForm 
-                            speciesId={id} 
-                            onAvisSubmitted={() => fetchSpeciesDetails(currentPage)} 
-                            user={user} 
+                        <AvisForm
+                            speciesId={id}
+                            onAvisSubmitted={() => fetchSpeciesDetails(currentPage)}
+                            user={user}
                         />
                     )}
                 </>
